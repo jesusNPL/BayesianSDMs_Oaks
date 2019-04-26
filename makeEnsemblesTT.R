@@ -12,7 +12,7 @@ setwd("EnviData/Yearly")
 ##### Ensembles #####
 
 modelsOAKS <- read.sdm("sdmData/sdmData_OAKS.sdm")
-# using the models ID
+# using models ID
 
 # Multiple species
 getModelInfo(modelsOAKS)
@@ -24,13 +24,13 @@ modelsInfo <- getModelInfo(modelsOAKS)
 ids <- rep(split(seq_len(length(modelsInfo$modelID)), rep(1:128, each = 4)), each = 1)
 ids
 
-### Separate species models based in its ID
+### Separate species models based on its ID
 sppnames <- unique(modelsInfo$species)
 sppnames
 
 nSP <- length(unique(modelsInfo$species))
 
-indModels <- list()
+indModels <- list() # List of fitted models for each oak species
 
 for(sp in 1:nSP){
   print(sppnames[sp])

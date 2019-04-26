@@ -42,7 +42,7 @@ for(sp in 1:nSP){
 
 rm(modelsOAKS)
 
-### Save species ensambles one by one
+### Save species ensembles one by one
 
 for(spp in 1:length(indModels)){
 

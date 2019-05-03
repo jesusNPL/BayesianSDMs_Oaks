@@ -28,7 +28,7 @@ quercusSR <- calc(quercus, fun = sum) # stacked species richnnes
 plot(quercusSR)
 
 # To obtain a presence-abcense matrix (PAM) you just need to inform the next elements:
-# 1. a stack file
+# 1. a stack object
 # 2. the spatial resolution
 # 3. Given that predictions under ENM are continuous, we need to specify a threshold to estimate the presence or absence of a determinate species in a given cell or pixel
 # Important, changing resolution and threshold will produce different results.

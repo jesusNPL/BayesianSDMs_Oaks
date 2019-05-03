@@ -7,6 +7,7 @@ quercus <- stack(lf)
 dir.create("Binaries")
 
 writeBinary <- function(sppStack, nSP, thr = 0.1){
+  dir.create("Binaries")
   spnames <- names(sppStack)
   for(sp in 1:nSP){
     print(spnames[sp])
@@ -19,8 +20,4 @@ writeBinary <- function(sppStack, nSP, thr = 0.1){
 }
 
 writeBinary(sppStack = quercus, nSP = length(names(quercus)), thr = 0.1)
-
-
-
-
 

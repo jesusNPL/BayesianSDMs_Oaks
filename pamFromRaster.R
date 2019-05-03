@@ -1,5 +1,4 @@
 setwd("Ensembles/RS_WC")
-#source("https://raw.githubusercontent.com/jesusNPL/RS-SDM_ENM/master/PamFromRaster.R")
 
 library(raster)
 library(letsR)
@@ -19,47 +18,28 @@ pamFromRaster <- function(sppStack, resol = 0.5, thr = 0.1){
   return(pam)
 }
 
-
-lf <- list.files(pattern = "tif$")
+# Example
+lf <- list.files(pattern = "tif$") # list of raster files stored in your hard drive
 quercus <- stack(lf)
 res(quercus)
 extent(quercus)
-quercusSR <- calc(quercus, fun = sum)
+
+quercusSR <- calc(quercus, fun = sum) # stacked species richnnes
 plot(quercusSR)
 
+# To obtain a presence-abcense matrix (PAM) you just need to inform the next elements:
+# 1. a stack file
+# 2. the spatial resolution
+# 3. Given that predictions under ENM are continuous, we need to specify a threshold to estimate the presence or absence of a determinate species in a given cell or pixel
 resul <- pamFromRaster(sppStack = quercus, resol = 0.25, thr = 0.1)
 
 resul[1:10, 1:10]
 sr <- rowSums(resul[3:130])
 sr2 <- sr[sr >= 1]
 
+# Create an empty raster
 r <- raster(extent(quercus))
 res(r) <- 0.25
-
+# Recover the species richness of your clade of interest using the PAM
 map <- rasterize(resul[1:2], r, field = sr, fun = sum)
-plot(map)
-
-
-
-r <- raster(extent(quercus))
-res(r) <- 0.25
-#values(r) <- 0
-valores <- values(r)
-xy <- xyFromCell(r, 1:length(valores))
-
-
-tmp <- extract(quercus, xy)
-dim(xy)
-tmp2 <- data.frame(tmp)
-dim(tmp2)
-
-tmp4 <- tmp2
-tmp4[tmp4 > 0 ] <- 1
-tmp4[is.na(tmp4)] <- 0
-tmp3 <- cbind(xy, tmp4)
-write.csv(tmp3, "pamPrueba.csv")
-
-sr <- rowSums(tmp3[3:130])
-
-map <- rasterize(xy, r, field = sr, fun = sum)
 plot(map)

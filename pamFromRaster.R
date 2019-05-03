@@ -1,4 +1,4 @@
-setwd("Ensembles/RS_WC")
+#setwd("Ensembles/RS_WC")
 
 library(raster)
 library(letsR)
@@ -31,6 +31,8 @@ plot(quercusSR)
 # 1. a stack file
 # 2. the spatial resolution
 # 3. Given that predictions under ENM are continuous, we need to specify a threshold to estimate the presence or absence of a determinate species in a given cell or pixel
+# Important, changing resolution and threshold will produce different results.
+
 resul <- pamFromRaster(sppStack = quercus, resol = 0.25, thr = 0.1)
 
 resul[1:10, 1:10]

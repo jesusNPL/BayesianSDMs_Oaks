@@ -32,5 +32,5 @@ writeBinary2 <- function(pamOBS, sppStack, spNames, cover = 0.9){
   }
 }
 
-writeBinary2(pamOBS = tm, sppStack = quercus, spNames = sppnames)
+writeBinary2(pamOBS = OCC, sppStack = quercus, spNames = sppnames)
 

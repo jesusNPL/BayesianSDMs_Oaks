@@ -16,6 +16,7 @@ writeBinary <- function(sppStack, nSP, thr = 0.1){
     spp[spp > 0] <- 1
     plot(spp)
     writeRaster(spp, filename = paste("Binaries/", spnames[sp], sep = ""), format = "GTiff", overwrite = TRUE)
+    print("Binary predictions completed ! Check your results in the Binaries directory.")
   }
 }
 

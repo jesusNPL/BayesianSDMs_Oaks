@@ -3,7 +3,7 @@
 library(raster)
 library(letsR)
 
-pamFromRaster <- function(sppStack, resol = 0.5, thr = 0.1){
+pamFromRaster <- function(sppStack, resol = 0.5, thr = 0.1, saveResults = TRUE){
   library(raster)
   # Prepare information
   r <- raster(extent(sppStack))
@@ -15,6 +15,10 @@ pamFromRaster <- function(sppStack, resol = 0.5, thr = 0.1){
   tmp[tmp > thr] <- 1
   tmp[is.na(tmp)] <- 0
   pam <- cbind(xy, tmp)
+  if(saveResults == TRUE)
+  {
+  write.csv(pam, "PAM_from_ENM.csv")
+  }
   return(pam)
 }
 

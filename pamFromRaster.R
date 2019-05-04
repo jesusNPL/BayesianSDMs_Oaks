@@ -3,7 +3,7 @@
 library(raster)
 library(letsR)
 
-pamFromRaster <- function(sppStack, resol = 0.5, thr = 0.1, saveResults = TRUE){
+pamFromRaster <- function(sppStack, resol = 0.5, thr = 0.1, saveResults = FALSE){
   library(raster)
   # Prepare information
   r <- raster(extent(sppStack))

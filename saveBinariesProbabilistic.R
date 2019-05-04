@@ -29,6 +29,7 @@ writeBinary2 <- function(pamOBS, sppStack, spNames, cover = 0.9){
     sppBinary <- ecospat.binary.model(sppStack[[sp]], cutOFF)
     plot(sppBinary)
     writeRaster(sppBinary, filename = paste("Binaries2/", spNames[sp], sep = ""), format = "GTiff", overwrite = TRUE)
+    print("Binary predictions completed ! Check your results in the Binaries directory.")
   }
 }
 

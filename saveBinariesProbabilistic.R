@@ -13,11 +13,11 @@ dim(OCC)
 nombres <- names(OCC)
 names(OCC) <- c("x", "y", nombres[3:134])
 
-# Species names
-sppnames <- names(quercus)
+sppnames <- names(sppStack) # Species names
 
 writeBinary2 <- function(pamOBS, sppStack, spNames, cover = 0.9){
   dir.create("Binaries2")
+# for loop to assing species predictions and write predictions based on probabilities of occurrence
   for(sp in 1:length(spNames)){
     print(spNames[sp])
     occ <- pamOBS[spNames[sp]]

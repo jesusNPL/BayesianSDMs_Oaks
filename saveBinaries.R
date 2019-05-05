@@ -4,8 +4,6 @@ library(raster)
 lf <- list.files(pattern = "tif$")
 quercus <- stack(lf)
 
-dir.create("Binaries")
-
 writeBinary <- function(sppStack, nSP, thr = 0.1){
   dir.create("Binaries")
   spnames <- names(sppStack)

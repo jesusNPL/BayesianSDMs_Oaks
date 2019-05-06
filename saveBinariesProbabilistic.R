@@ -38,7 +38,7 @@ writeBinary2 <- function(pamOBS, sppStack, spNames, cover = 0.9){
 # Usage:
 # 1. Load species occurrences, this must be an incidence matrix. This is the same incidence matrix that is used to make the species ensmbles.
 # 2. A raster stack of N species
-# 3. Coverage "cover" or percentage of occurrences used for establish the cutoffs. 
+# 3. Coverage "cover" or percentage of occurrences used for establish the cutoffs. 0.9 or 90% default 
 
 writeBinary2(pamOBS = OCC, sppStack = quercus, spNames = sppnames, cover = 1)
 

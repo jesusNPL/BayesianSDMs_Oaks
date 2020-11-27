@@ -1,47 +1,4 @@
-
-
-for (i in 1:length(sp_list)){ 
-  print(sp_list[i])
-  oak_tmp <- droplevels(subset(oaks_filtered, Species == sp_list[i]))
-  
-  if(nrow(oak_tmp) < 50){
-  }
-  if(nrow(oak_tmp) >= 50 & nrow(oak_tmp) <= 100){  
-  }
-  if(nrow(oak_tmp) > 100 & nrow(oak_tmp) <= 500){  
-  }
-  if(nrow(oak_tmp) > 500 & nrow(oak_tmp) <= 750){  
-  }
-  if(nrow(oak_tmp) > 750 & nrow(oak_tmp) <= 1000){ 
-  }
-  if(nrow(oak_tmp) > 1000 & nrow(oak_tmp) <= 2500){ 
-  }
-  if(nrow(oak_tmp) > 2500 & nrow(oak_tmp) <= 5000){  
-  }
-  if(nrow(oak_tmp) > 5000 & nrow(oak_tmp) <= 7500){ 
-  }
-  if(nrow(oak_tmp) > 7500 & nrow(oak_tmp) <= 10000){  
-  }
-  if(nrow(oak_tmp) > 1000){ 
-  }
-  
-    thinning <- thin(
-      oak_tmp, 
-      verbose = FALSE, 
-      long.col = "longitude", 
-      lat.col = "latitude",
-      spec.col = "Species",
-      thin.par = 0.5, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
-      locs.thinned.list.return = TRUE, 
-      write.files = FALSE, 
-      out.dir = "DATA/OCC/MODEL")
-    
-    thinning <- as.data.frame(thinning)
-    thinning$Species <- rep(sp_list[i], nrow(thinning))
-    oaks_thinned_50_100 <- rbind(oaks_thinned_50_100, thinning)
-} 
-
+# Script to perform spatial thinning considering number of occurrences
 
 setwd("C:/Users/jpintole/Dropbox/RS_SDM")
 library(raster)
@@ -50,6 +7,7 @@ library(tidyr)
 library(dplyr)
 library(rworldmap)
 library(spThin)
+
 ##### Occurrence data #####
 oaks <- read.csv("DATA/OCC/Quercus_data.csv")
 head(oaks)

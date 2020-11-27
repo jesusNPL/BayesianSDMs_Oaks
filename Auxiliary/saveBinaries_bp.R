@@ -1,8 +1,8 @@
-setwd("Ensembles/RS")
+#setwd("Ensembles/RS")
 
 library(raster)
-lf <- list.files(pattern = "tif$")
-quercus <- stack(lf)
+#lf <- list.files(pattern = "tif$")
+#quercus <- stack(lf)
 
 writeBinary <- function(sppStack, nSP, thr = 0.1){
   dir.create("Binaries")
@@ -18,5 +18,5 @@ writeBinary <- function(sppStack, nSP, thr = 0.1){
   }
 }
 
-writeBinary(sppStack = quercus, nSP = length(names(quercus)), thr = 0.1)
+#writeBinary(sppStack = quercus, nSP = length(names(quercus)), thr = 0.1)
 

@@ -1,19 +1,19 @@
 library(raster)
 library(ecospat)
 
-setwd("Ensembles/RS")
+#setwd("Ensembles/RS")
 
 ##### Load predictions #####
-lf <- list.files(pattern = "tif$")
-quercus <- stack(lf)
+#lf <- list.files(pattern = "tif$")
+#quercus <- stack(lf)
 
 ##### Load species occurrences #####
-OCC <- read.csv("OCC/PAM_quercus_NEW_FINAL.csv")[, -1]
-dim(OCC)
-nombres <- names(OCC)
-names(OCC) <- c("x", "y", nombres[3:134])
+#OCC <- read.csv("OCC/PAM_quercus_NEW_FINAL.csv")[, -1]
+#dim(OCC)
+#nombres <- names(OCC)
+#names(OCC) <- c("x", "y", nombres[3:134])
 
-sppnames <- names(sppStack) # Species names
+#sppnames <- names(sppStack) # Species names
 
 writeBinary2 <- function(pamOBS, sppStack, spNames, cover = 0.9){
   dir.create("Binaries2")
@@ -40,5 +40,5 @@ writeBinary2 <- function(pamOBS, sppStack, spNames, cover = 0.9){
 # 2. A raster stack of N species
 # 3. Coverage "cover" or percentage of occurrences used for establish the cutoffs. 0.9 or 90% default 
 
-writeBinary2(pamOBS = OCC, sppStack = quercus, spNames = sppnames, cover = 1)
+#writeBinary2(pamOBS = OCC, sppStack = quercus, spNames = sppnames, cover = 1)
 

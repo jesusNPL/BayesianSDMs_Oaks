@@ -29,11 +29,11 @@ USA2 <- aggregate(USA, dissolve = TRUE)
 plot(USA2)
 plot(spp_lst[[10]], add = TRUE)
 
-##### Set species specific accessible area #####
-#spp_envi <- list()
-dir.create("NEW_oakSDM/Calibration2")
-dir.create("NEW_oakSDM/DATA/COVARS2")
-dir.create("NEW_oakSDM/BayesianPredictions2")
+##### RUN BART #####
+### Inits
+dir.create("NEW_oakSDM/Calibration")
+dir.create("NEW_oakSDM/DATA/COVARS")
+dir.create("NEW_oakSDM/BayesianPredictions")
 
 predNames <- c("Prediction", "Lowbound", "Highbound")
 
@@ -70,7 +70,7 @@ for(j in 1:length(spp)){
   all.cov <- all.cov[complete.cases(all.cov), ]
   all.cov <- na.omit(all.cov)
   #head(all.cov)
-  saveRDS(all.cov, file = paste0("NEW_oakSDM/DATA/COVARS2/", spp[j], "_PA_Covars.rds", sep = ""))
+  saveRDS(all.cov, file = paste0("NEW_oakSDM/DATA/COVARS/", spp[j], "_PA_Covars.rds", sep = ""))
   
   ##### Calibrate Bayesian models
   oakSDM <- bart.step(x.data = all.cov[, xvars],
@@ -83,7 +83,7 @@ for(j in 1:length(spp)){
   print(paste0("BART model completed! Saving model for ", spp[j], " in Calibration folder...", sep = " "))
   
   ##### Model prediction 
-  #load(paste0("NEW_oakSDM/Calibration2/", spp[[j]] ,".RData", sep = ""))
+  #load(paste0("NEW_oakSDM/Calibration/", spp[[j]] ,".RData", sep = ""))
   
   oakPredictions <- embarcadero::predict2.bart(object = oakSDM, 
                                                x.layers = enviSPP, 

@@ -1,3 +1,5 @@
+# Script to calibrate and predict SDMs using Bayesian additive regression trees (Aka BART)
+
 setwd("Z:/3-Personal Research Folders/Jesus")
 
 require(embarcadero)
@@ -46,7 +48,7 @@ for(j in 1:length(spp)){
   p <- as(e, 'SpatialPolygons')
   crs(p) <- crs(envi)
   #plot(p, add = TRUE)
-  #shapefile(p, paste0("NEW_oakSDM/DATA/Spatial/Accessible_Area/AA_", spp[j], ".shp", sep = ""))
+  shapefile(p, paste0("NEW_oakSDM/DATA/Spatial/Accessible_Area/AA_", spp[j], ".shp", sep = ""))
   out <- gIntersection(USA2, p, byid = TRUE)
   enviSPP <- raster::crop(envi, out)
   #spp_envi[[j]] <- raster::mask(enviSPP, out)
@@ -70,7 +72,7 @@ for(j in 1:length(spp)){
   #head(all.cov)
   saveRDS(all.cov, file = paste0("NEW_oakSDM/DATA/COVARS2/", spp[j], "_PA_Covars.rds", sep = ""))
   
-  ##### Calibrate models
+  ##### Calibrate Bayesian models
   oakSDM <- bart.step(x.data = all.cov[, xvars],
                       y.data = all.cov[, 'Presence'],
                       full = TRUE,
@@ -78,9 +80,9 @@ for(j in 1:length(spp)){
   
   save(oakSDM, file = paste0("NEW_oakSDM/Calibration2/", spp[j], ".RData", sep = "")) 
   
-  print(paste0("BART model completed! Saving model for ", spp[j], " in Calibration2 folder...", sep = " "))
+  print(paste0("BART model completed! Saving model for ", spp[j], " in Calibration folder...", sep = " "))
   
-  ##### Predict models 
+  ##### Model prediction 
   #load(paste0("NEW_oakSDM/Calibration2/", spp[[j]] ,".RData", sep = ""))
   
   oakPredictions <- embarcadero::predict2.bart(object = oakSDM, 
@@ -88,12 +90,12 @@ for(j in 1:length(spp)){
                                                quantiles = c(0.025, 0.975), 
                                                splitby = 20, 
                                                quiet = FALSE)
-  saveRDS(oakPredictions, paste0("NEW_oakSDM/BayesianPredictions2/", spp[j], "_prediction.rds", sep = ""))
+  saveRDS(oakPredictions, paste0("NEW_oakSDM/BayesianPredictions/", spp[j], "_prediction.rds", sep = ""))
   
-  writeRaster(oakPredictions, filename = paste0("NEW_oakSDM/BayesianPredictions2/", spp[j]), 
+  writeRaster(oakPredictions, filename = paste0("NEW_oakSDM/BayesianPredictions/", spp[j]), 
               format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = predNames)
   
   print(paste0("Your SDM based on Bayesian additive regression trees for ", spp[j], 
-               " is complete, please check folder BayesianPredictions2", sep = ""))
+               " is complete, please check folder BayesianPredictions", sep = ""))
   
 }

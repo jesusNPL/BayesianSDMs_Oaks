@@ -69,7 +69,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 0.5, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -87,7 +87,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 1, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -105,7 +105,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 1.5, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -123,7 +123,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 2, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -141,7 +141,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 2.5, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -159,7 +159,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 3, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -177,7 +177,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 3.5, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")
@@ -195,7 +195,7 @@ for (i in 1:length(sp_list)){
       lat.col = "latitude",
       spec.col = "Species",
       thin.par = 5, # points have at least a minimum distance of 1 km from each other
-      reps = 1, 
+      reps = 3, 
       locs.thinned.list.return = TRUE, 
       write.files = FALSE, 
       out.dir = "DATA/OCC/MODEL")

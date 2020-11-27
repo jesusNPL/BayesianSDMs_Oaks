@@ -1,3 +1,5 @@
+# Script to construct bioclimatic variables using data from remote sensing
+
 setwd("Z:/3-Personal Research Folders/Jesus")
 
 require(raster)
@@ -112,7 +114,7 @@ tmaxNames <- names(RS_Tmax_noNA)
 RS_Tmin_noNA <- stack(RS_Tmin_noNA)
 tminNames <- names(RS_Tmin_noNA)
 
-## Build bioclimatic variables
+### Build bioclimatic variables
 RS_bios <- biovars(prec = RS_PREC_noNA, tmin = RS_Tmin_noNA, tmax = RS_Tmax_noNA)
 biosNames <- names(RS_bios)
 
@@ -135,34 +137,7 @@ writeRaster(RS_Tmin_noNA, "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m/
 
 rm(PREC, PREC_lst, Tmax, Tmax_lst, Tmin, Tmin_lst, RS_PREC_noNA, RS_Tmax_noNA, RS_Tmin_noNA)
 
-##### Resample to 1km using Worldclim ##### 
-wc_lst <- list.files(path = "WC30S/", pattern = "bil$")
-setwd("WC30S")
-
-WC_bios <- stack(wc_lst)
-setwd("..")
-
-WC_bios_crop <- crop(WC_bios, extent(RS_bios))
-extent(WC_bios_crop)
-
-WC_bios_crop <- stack(WC_bios_crop$bio_1, WC_bios_crop$bio_2, WC_bios_crop$bio_3, WC_bios_crop$bio_4, 
-                      WC_bios_crop$bio_5, WC_bios_crop$bio_6, WC_bios_crop$bio_7, WC_bios_crop$bio_8, 
-                      WC_bios_crop$bio_9, WC_bios_crop$bio_10, WC_bios_crop$bio_11, WC_bios_crop$bio_12, 
-                      WC_bios_crop$bio_13, WC_bios_crop$bio_14, WC_bios_crop$bio_15, WC_bios_crop$bio_16, 
-                      WC_bios_crop$bio_17, WC_bios_crop$bio_18, WC_bios_crop$bio_19)
-
-
-wcNames <- names(WC_bios_crop)
-
-writeRaster(WC_bios_crop, "WC30S/Crop", 
-            format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = biosNames)
-## Resample method
-
-RS_bios_1k <- resample(RS_bios, WC_bios_crop, method = "bilinear")
-
-writeRaster(RS_bios_1k, "RSData/BioCLIM_RS/BIOCLIM_MODIS/RS_1k_resample", 
-            format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = biosNames)
-
+##### Resample to 1km under different approaches ##### 
 ##### Data fusion #####
 require(satellite)
 require(satelliteTools)
@@ -291,7 +266,6 @@ prec_data_p4  <- prec_data[, c(1:2, 9:10)]
 prec_data_p5  <- prec_data[, c(1:2, 11:12)]
 prec_data_p6  <- prec_data[, c(1:2, 13:14)]
 
-
 PREC_inter_p1 <- machisplin.mltps(int.values = prec_data_p1, covar.ras = pred_US2, n.cores = 2)
 
 save(PREC_inter_p1,  
@@ -309,19 +283,3 @@ WC_bios_US <- mask(WC_bios_US, states.shp)
 LAI_cum_US <- crop(LAIcum, states.shp)
 
 fact <- res(RS_bios_US[[2]])/res(LAI_cum_US)
-
-##### Data fusion #####
-require(satellite)
-require(satelliteTools)
-
-#bio1_ps <- panSharp(RS_bios_US[[1]], WC_bios_US[[1]])
-
-RS_bios_US_res <- resample(RS_bios_RS, wc_bios_US, method = "bilinear")
-
-writeRaster(RS_bios_US_res, "RSData/BioCLIM_RS/BIOCLIM_MODIS/RSbio_US", 
-            format = "GTiff", bylayer = TRUE, overwrite = TRUE)
-
-plot(RS_bios_US_res)
-
-
-

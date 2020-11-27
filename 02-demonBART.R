@@ -78,7 +78,7 @@ for(j in 1:length(spp)){
                       full = TRUE,
                       quiet = TRUE)
   
-  save(oakSDM, file = paste0("NEW_oakSDM/Calibration2/", spp[j], ".RData", sep = "")) 
+  save(oakSDM, file = paste0("NEW_oakSDM/Calibration/", spp[j], ".RData", sep = "")) 
   
   print(paste0("BART model completed! Saving model for ", spp[j], " in Calibration folder...", sep = " "))
   

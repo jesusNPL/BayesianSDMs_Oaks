@@ -13,7 +13,7 @@ makeBinary.BART <- function(sppNames, threshold, direction, suffix) {
   require(raster)
   
   for(k in 1:length(sppNames)) {
-    print(lst[sppNames])
+    print(sppNames[k])
     
     thresh <- threshold[k]
     pred <- raster::raster(paste0(direction, sppNames[k], suffix))

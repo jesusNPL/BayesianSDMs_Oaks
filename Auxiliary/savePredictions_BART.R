@@ -26,7 +26,7 @@ makeBinary.BART <- function(sppNames, threshold, direction, suffix) {
     writeRaster(pred, filename = paste0("NEW_oakSDM/BayesianPredictions/Binaries/", sppNames[k], 
                                        "_binary", sep = ""), format = "GTiff", overwrite = TRUE)
     
-    print(paste0("Your Binary SDM based on BART TSS threshold ", sppNames[k], 
+    print(paste0("Your Binary SDM based on BART TSS threshold for ", sppNames[k], 
                  " is complete, please check folder BayesianPredictions/Binaries", sep = ""))
   }
 }

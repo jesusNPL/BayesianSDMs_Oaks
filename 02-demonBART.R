@@ -48,12 +48,13 @@ for(j in 1:length(spp)){
   p <- as(e, 'SpatialPolygons')
   crs(p) <- crs(envi)
   #plot(p, add = TRUE)
-  shapefile(p, paste0("NEW_oakSDM/DATA/Spatial/Accessible_Area/AA_", spp[j], ".shp", sep = ""))
   out <- gIntersection(USA2, p, byid = TRUE)
+  shapefile(out, paste0("NEW_oakSDM/DATA/Spatial/Accessible_Area/AA_", spp[j], ".shp", sep = ""))
   enviSPP <- raster::crop(envi, out)
   #spp_envi[[j]] <- raster::mask(enviSPP, out)
   plot(enviSPP[[1]])
   plot(tmp, add = TRUE)
+  plot(out, add = TRUE, lwd = 1.5, col = "red")
   
   ##### Covariate information
   pres.cov <- data.frame(raster::extract(enviSPP, spp_lst[[j]]))

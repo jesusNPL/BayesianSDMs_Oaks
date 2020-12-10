@@ -84,7 +84,7 @@ for(j in 1:length(spp_full)){
   absence$Occurrence <- 0
   
   species <- rbind(presence, absence)
-  species$Species <- spp_full[[j]]
+  species$Species <- spp_full[j]
   
   coordinates(species) <- ~ Longitude + Latitude
   crs(species) <- crs(envi)

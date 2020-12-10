@@ -1,0 +1,1 @@
+This folder contain scripts for running SDMs using the R package sdm. 

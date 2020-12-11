@@ -65,7 +65,6 @@ for(j in 1:length(spp_full)){
   # Generate the data
   absence <- randomPoints(mask = enviSPP[[1]], n = round(nrow(spp_lst_full[[j]])*1.1, 0), 
                           p = spp_lst_full[[j]], ext = extent(enviSPP))
-  #> longitude/latitude
   abs.cov <- data.frame(raster::extract(enviSPP, absence))
   abs.cov$Species <- spp_full[j]
   abs.cov$Presence <- 0
@@ -75,7 +74,7 @@ for(j in 1:length(spp_full)){
   head(all.cov)
   saveRDS(all.cov, file = paste0("NEW_oakSDM/DATA/COVARS_SDM/", spp_full[j], "_PA_Covars.rds", sep = ""))
   
-  ##### create species in the format of the package sdm. This is stupid!!!
+  ##### create species occ in the format of the package sdm. This is stupid!!!
   presence <- data.frame(coordinates(tmp))
   presence$Occurrence <- 1 
   
@@ -101,7 +100,7 @@ for(j in 1:length(spp_full)){
   ##### Calibrate models using different algorithms
   #crs(tmp) <- crs(enviSPP)
   #bgs <- nrow(tmp@data)
-  oakDATA <- sdmData(formula = Occurrence~US_bio01+US_bio04+US_bio06+US_bio10+US_bio12+US_bio15+US_elevation+US_LAIcum+US_LAImin+US_LAIseason, 
+  oakDATA <- sdmData(formula = Occurrence ~ US_bio01 + US_bio04 + US_bio06 + US_bio10 + US_bio12 + US_bio15 + US_elevation + US_LAIcum + US_LAImin + US_LAIseason, 
                      train = species, predictors = enviSPP) #, bg = list(n = bgs*2)) 
   
   oakSDM <- sdm(Occurrence~., data = oakDATA, methods = c("glm", "gam", "mars", "svm", "rf", "brt", "maxlike"), 
@@ -113,13 +112,16 @@ for(j in 1:length(spp_full)){
   print(paste0("SDM models completed! Saving model for ", spp_full[j], 
                " in Calibration_SDM folder...", sep = " "))
   
-  ##### Predict models 
-  # Prediction for individual algorithm
-  #oakPredictions <- predict(oakSDM, newdata = enviSPP, 
-   #                         filename = paste0("NEW_oakSDM/Predictions_SDM/", spp_full[j], "_predictions.img"), 
-    #                        parallelSettings = list(ncore = 14, method = "parallel"))
+  ##### Predict models #####
+  ## Prediction for individual algorithm - this will return a massive raster stack with the 7 algorithms piled together (Useful for model comparison)
+  oakPredictions <- predict(oakSDM, newdata = enviSPP, 
+                            filename = paste0("NEW_oakSDM/Predictions_SDM/", spp_full[j], "_predictions.img"), 
+                            parallelSettings = list(ncore = 14, method = "parallel"))
   
-  # Ensemble prediction
+    print(paste0("Your SDM based on a set of different algorithms for ", spp_full[j], 
+               " is complete, please check folder Predicitons_SDM", sep = ""))
+  
+  ### Ensemble prediction - ensemble based on TSS statistics
   oakEnsemble <- ensemble(oakSDM, enviSPP, setting = list(method = "weighted", stat = "TSS"), 
                              parallelSettings = list(ncore = 14, method = "parallel"))
   
@@ -131,6 +133,6 @@ for(j in 1:length(spp_full)){
               format = "GTiff", bylayer = TRUE, overwrite = TRUE)
   
   print(paste0("Your SDM based on a Ensemble of different algorithms for ", spp_full[j], 
-               " is complete, please check folder Predicitons_SDM", sep = ""))
+               " is complete, please check folder Ensemble_SDM", sep = ""))
   
 }

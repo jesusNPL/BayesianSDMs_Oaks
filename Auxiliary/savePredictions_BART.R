@@ -23,7 +23,7 @@ makeBinary.BART <- function(sppNames, threshold, direction, suffix) {
     pred[pred < thresh] <- 0 
     pred[pred > 0] <- 1
     
-    writeRaster(pred, filename = paste0(direction, "Binary", sppNames[k], 
+    writeRaster(pred, filename = paste0(direction, "Binary/", sppNames[k], 
                                        "_binary", sep = ""), format = "GTiff", overwrite = TRUE)
     
     print(paste0("Your Binary SDM based on BART TSS threshold for ", sppNames[k], 

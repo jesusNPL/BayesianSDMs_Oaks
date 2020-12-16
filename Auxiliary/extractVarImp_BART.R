@@ -18,4 +18,4 @@ extractVARIMP_BART <- function(sppNames, directory) {
   return(varImp)
 }
 
-varImp_oaks <- extractVARIMP_BART(sppNames = spps, directory = direct)
+#varImp_oaks <- extractVARIMP_BART(sppNames = spps, directory = direct)

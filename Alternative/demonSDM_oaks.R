@@ -105,7 +105,7 @@ for(j in 1:length(spp_full)){
   
   oakSDM <- sdm(Occurrence~., data = oakDATA, methods = c("glm", "gam", "mars", "svm", "rf", "brt", "maxlike"), 
                 replication = "sub", test.percent = 30, n = 10, 
-                parallelSettings = list(ncore = 14, method = "parallel"))
+                parallelSettings = list(ncore = 48, method = "parallel"))
   
   write.sdm(oakSDM, file = paste0("NEW_oakSDM/Calibration_SDM/", spp_full[j], sep = ""), overwrite = TRUE) 
   
@@ -116,7 +116,7 @@ for(j in 1:length(spp_full)){
   ## Prediction for individual algorithm - this will return a massive raster stack with the 7 algorithms piled together (Useful for model comparison)
   oakPredictions <- predict(oakSDM, newdata = enviSPP, 
                             filename = paste0("NEW_oakSDM/Predictions_SDM/", spp_full[j], "_predictions.img"), 
-                            parallelSettings = list(ncore = 14, method = "parallel"))
+                            parallelSettings = list(ncore = 48, method = "parallel"))
   
     print(paste0("Your SDM based on a set of different algorithms for ", spp_full[j], 
                " is complete, please check folder Predicitons_SDM", sep = ""))

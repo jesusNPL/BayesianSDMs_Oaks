@@ -74,19 +74,19 @@ for(j in 1:length(spp)){
   saveRDS(all.cov, file = paste0("NEW_oakSDM/DATA/COVARS/", spp[j], "_PA_Covars.rds", sep = ""))
   
   ##### Calibrate Bayesian models
-  oakSDM <- bart.step(x.data = all.cov[, xvars],
+  oakBART <- bart.step(x.data = all.cov[, xvars],
                       y.data = all.cov[, 'Presence'],
                       full = TRUE,
                       quiet = TRUE)
   
-  save(oakSDM, file = paste0("NEW_oakSDM/Calibration/", spp[j], ".RData", sep = "")) 
+  save(oakBART, file = paste0("NEW_oakSDM/Calibration/", spp[j], ".RData", sep = "")) 
   
   print(paste0("BART model completed! Saving model for ", spp[j], " in Calibration folder...", sep = " "))
   
   ##### Model prediction 
   #load(paste0("NEW_oakSDM/Calibration/", spp[[j]] ,".RData", sep = ""))
   
-  oakPredictions <- embarcadero::predict2.bart(object = oakSDM, 
+  oakPredictions <- embarcadero::predict2.bart(object = oakBART, 
                                                x.layers = enviSPP, 
                                                quantiles = c(0.025, 0.975), 
                                                splitby = 20, 

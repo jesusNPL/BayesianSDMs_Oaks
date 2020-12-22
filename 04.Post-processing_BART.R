@@ -21,14 +21,11 @@ suffix_unc <- "_unc.tif" # file extension
 ##### Extract summary from BART #####
 spp_full_final <- unique(c(spp_full, spp))
 
-
 spp_SUM <- list()
 
 for(i in 1:length(spp_full_final)) {
   print(spp_full_final[i])
-  #if (spp_full[i] == "Quercus_polymorpha") { next
-    
-  #}
+
   mod <- readRDS(paste0("NEW_oakSDM/Calibration3/", spp_full_final[i], ".rds"))
   spp_SUM[[i]] <- extractSummary.BART(model = mod, species = spp_full_final[i])
   
@@ -48,10 +45,6 @@ dir.create("NEW_oakSDM/BayesianPredictions_uncertainty")
 for(k in 1:length(spp_full_final)) {
   print(spp_full_final[k])
   
-  #if (spp_full[k] == "Quercus_polymorpha") { next
-    
-  #}
-  
   spp <- spp_full_final[k]
   tmpRAS <- readRDS(paste0(direct, spp, "_prediction.rds"))
   
@@ -67,10 +60,12 @@ for(k in 1:length(spp_full_final)) {
 ##### Make binary predictions based on TSS thresholds #####
 load("NEW_oakSDM/BART_oak_evaluation.RData")
 
+### Predictions or probability of presence
 makeBinary.BART(sppNames = OAK_summary[, "Species"], 
                 threshold = OAK_summary[, "Threshold_TSS"], 
                 direction = direct, suffix = suffix)
 
+### Uncertainty in predictions
 makeBinary.BART(sppNames = OAK_summary[, "Species"], 
                 threshold = OAK_summary[, "Threshold_TSS"], 
                 direction = direct_unc, suffix = suffix_unc)
@@ -82,9 +77,6 @@ env <- raster("NEW_oakSDM/DATA/Envi/US_bio01.tif")
 
 for(j in 1:length(spp_full_final)){
   print(spp_full_final[j])
-  
-  #if (spp_full[j] == "Quercus_polymorpha") { next 
-  #}
   
   spp <- spp_full_final[j]
   

@@ -72,7 +72,7 @@ makeBinary.BART(sppNames = OAK_summary[, "Species"],
 
 ##### Predictions and Binary and uncertainty stacking #####
 
-## Reproject predictions to the Continental US for plotting proposes  
+### Reproject predictions to the Continental US extent for plotting proposes  
 env <- raster("NEW_oakSDM/DATA/Envi/US_bio01.tif")
 
 for(j in 1:length(spp_full_final)){
@@ -116,7 +116,7 @@ for(j in 1:length(spp_full_final)){
 
 rm(list = ls())
 
-## Stacking rasters 
+### Stacking rasters 
 lst_pred <- list.files("NEW_oakSDM/BayesianPredictions3/Reproject")
 setwd("NEW_oakSDM/BayesianPredictions3/Reproject")
 
@@ -134,7 +134,8 @@ setwd("NEW_oakSDM/BayesianPredictions_uncertainty/Reproject/Binary")
 
 oak_unc <- stack(lst_unc)
 setwd("../../../..")
-## Saving stacks
+
+### Saving stacks
 oak_bin <- readAll(oak_bin)
 
 SDMs_predictions_BART <- stackSave(oak_pred, filename = "NEW_oakSDM/SR_predictions/SDMs_predictions_BART")

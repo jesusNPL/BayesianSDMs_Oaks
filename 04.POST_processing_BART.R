@@ -1,6 +1,6 @@
 setwd("Z:/3-Personal Research Folders/Jesus")
 
-source("https://raw.githubusercontent.com/jesusNPL/BayesianSDMs_Oaks/master/Auxiliary/summaryBART.R")
+source("https://raw.githubusercontent.com/jesusNPL/BayesianSDMs_Oaks/master/Auxiliary/summary_BART.R")
 source("https://raw.githubusercontent.com/jesusNPL/BayesianSDMs_Oaks/master/Auxiliary/makeMAPS_BART.R")
 source("https://raw.githubusercontent.com/jesusNPL/BayesianSDMs_Oaks/master/Auxiliary/savePredictions_BART.R")
 source("https://raw.githubusercontent.com/jesusNPL/BayesianSDMs_Oaks/master/Auxiliary/extractVarImp_BART.R")

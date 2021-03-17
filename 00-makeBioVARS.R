@@ -137,28 +137,10 @@ writeRaster(RS_Tmin_noNA, "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m/
 
 rm(PREC, PREC_lst, Tmax, Tmax_lst, Tmin, Tmin_lst, RS_PREC_noNA, RS_Tmax_noNA, RS_Tmin_noNA)
 
-##### Resample to 1km under different approaches ##### 
-##### Data fusion #####
-require(satellite)
-require(satelliteTools)
 
-#bio1_ps <- panSharp(RS_bios_US[[1]], WC_bios_US[[1]])
-RS_bios_1k_pan <- list()
 
-for(j in 1:length(biosNames)){
-  print(biosNames[j])
-  
-  RS_bios_1k_pan[[j]] <- panSharp(RS_bios[[j]], WC_bios_crop[[j]])
-  
-  print("Remote sensing sharpening completed for bio n ...")
-}
 
-RS_bios_1k_pan <- stack(RS_bios_1k_pan)
-
-writeRaster(RS_bios_1k_pan, "RSData/BioCLIM_RS/BIOCLIM_MODIS/RS_1k_sharped", 
-            format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = biosNames)
-
-plot(RS_bios_1k_pan[[1:4]])
+##### Resample to 1km - this part is experimental ##### 
 
 ##### -------------------------------------------------------------- #####
 ##### Machine Learning Interpolation #####

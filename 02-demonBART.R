@@ -44,7 +44,7 @@ for(j in 1:length(spp)){
   
   ##### Species specific accesible area
   bb <- bbox(tmp)
-  e <- extent(c(bb[1]-4, bb[3]+4, bb[2]-4, bb[4]+4))
+  e <- extent(c(bb[1]-3, bb[3]+3, bb[2]-3, bb[4]+3))
   p <- as(e, 'SpatialPolygons')
   crs(p) <- crs(envi)
   #plot(p, add = TRUE)

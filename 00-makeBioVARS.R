@@ -12,16 +12,6 @@ AM <- subset(countriesCoarse, countriesCoarse$continent == "South America" | cou
 NAs <- subset(countriesCoarse, countriesCoarse$ADMIN == "United States of America" | countriesCoarse$ADMIN == "Mexico")
 plot(NAs)
 
-variables <- c("Cumulative", "Minimum", "Seasonality")
-
-lai_dhi <- stack("RSData/DHI/dhi_lai8_combined/dhi_lai8qa_f.tif")
-writeRaster(lai_dhi, "RSData/DHI/LAI/LAI", format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = variables)
-rm(lai_dhi)
-
-LAIcum <- raster("RSData/DHI/LAI/LAI_cumulative.tif")
-plot(LAIcum)
-plot(NAs, add = TRUE)
-
 ##### Original RS bioclim #####
 lst <- list.files(path = "RSData/BioCLIM_RS", pattern = "tif$")
 setwd("RSData/BioCLIM_RS/")

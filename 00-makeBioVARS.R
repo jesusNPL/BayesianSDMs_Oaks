@@ -23,8 +23,8 @@ plot(LAIcum)
 plot(NAs, add = TRUE)
 
 ##### Original RS bioclim #####
-lst <- list.files(path = "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_BIOCLIMS_03m", pattern = "tif$")
-setwd("RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_BIOCLIMS_03m")
+lst <- list.files(path = "RSData/BioCLIM_RS", pattern = "tif$")
+setwd("RSData/BioCLIM_RS/")
 
 RS_bios <- stack(lst)
 setwd("../../..")
@@ -49,15 +49,15 @@ for(r in 1:length(biosNames)){
 RS_bios_noNA <- stack(RS_bios_noNA)
 plot(RS_bios_noNA)
 
-writeRaster(RS_bios, "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_BIOCLIMS_03m/Clean", 
+writeRaster(RS_bios, "RSData/BioCLIM_RS/Clean", 
             format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = biosNames)
 
 rm(RS_bio1_noNA, RS_bios, RS_bios_lst, RS_bios_noNA)
 
 ##### Build bioclimatic variables #####
-lst <- list.files(path = "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m", pattern = "tif$")
+lst <- list.files(path = "RSData/BioCLIM_RS/Clean/", pattern = "tif$")
 
-setwd("RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m")
+setwd("RSData/BioCLIM_RS/Clean")
 
 PREC <- lst[1:12]
 Tmax <- lst[13:24]
@@ -126,13 +126,13 @@ plot(RS_bios[[1:4]])
 plot(RS_bios[[16:19]])
 
 ## save cleaned monthly data 
-writeRaster(RS_PREC_noNA, "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m/CLEAN/Clean", 
+writeRaster(RS_PREC_noNA, "RSData/BioCLIM_RS/CLEAN/Clean", 
             format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = precNames)
 
-writeRaster(RS_Tmax_noNA, "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m/CLEAN/Clean", 
+writeRaster(RS_Tmax_noNA, "RSData/BioCLIM_RS/CLEAN/Clean", 
             format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = tmaxNames)
 
-writeRaster(RS_Tmin_noNA, "RSData/BioCLIM_RS/MOD11C3v6.0-CHIRPSv2.0_MONTHLY_03m/CLEAN/Clean", 
+writeRaster(RS_Tmin_noNA, "RSData/BioCLIM_RS/CLEAN/Clean", 
             format = "GTiff", bylayer = TRUE, overwrite = TRUE, suffix = tminNames)
 
 rm(PREC, PREC_lst, Tmax, Tmax_lst, Tmin, Tmin_lst, RS_PREC_noNA, RS_Tmax_noNA, RS_Tmin_noNA)
